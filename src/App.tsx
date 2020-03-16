@@ -3,20 +3,21 @@ import logo from "./logo.svg";
 import "./App.scss";
 import WelcomePage from "./WelcomePage";
 import QuestionPage from "./QuestionPage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+
   return (
     <div className="App">
       <Router>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/questions" render={() => <QuestionPage />} />
+          <Route
+            path="/questions"
+            render={() => <QuestionPage questions={data} />}
+          />
           <Route path="/users" />
 
           <Route

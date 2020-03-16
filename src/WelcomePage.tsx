@@ -9,19 +9,21 @@ import { useHistory } from "react-router-dom";
 const diffLevels = ["Any", "Easy", "Medium", "Hard"];
 const categories = [];
 
-function WelcomePage(props: any) {
-    let history = useHistory();
+function WelcomePage(props: { setQuests: Function }) {
+  let history = useHistory();
   const [questions, setQuestions] = useState([]);
+  const { setQuests } = props;
   const getQuestions = () => {
-    axios.get("https://opentdb.com/api.php?amount=10").then((res: any) => {
+    axios.get("https://opentdb.com/api.php?amount=10&type=multiple").then((res: any) => {
       let data = res.data.results;
       setQuestions(data);
-      history.push('/questions')
+      history.push("/questions");
     });
   };
   useEffect(() => {
-      console.log('x')
-    props.setQuests(questions);
+    if (questions.length) {
+      setQuests(questions);
+    }
   }, [questions]);
   return (
     <div className="welcome">
@@ -50,7 +52,7 @@ function WelcomePage(props: any) {
           </div>
         </div>
         <button className="get-start" onClick={getQuestions}>
-          <Link to="/questions">Get started</Link>
+          Get started
         </button>
       </header>
     </div>

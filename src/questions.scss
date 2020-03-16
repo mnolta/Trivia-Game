@@ -1,6 +1,9 @@
 .questions {
   .q-questions {
     text-align: center;
+    p {
+      padding: 10px 40px 10px 40px;
+    }
   }
 
   .q-mchoices {
@@ -13,7 +16,7 @@
     .choice {
       width: 50%;
       height: 19%;
-      font-size: 100%;
+      font-size: initial;
       border-radius: 10px;
     }
   }

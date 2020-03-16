@@ -2,15 +2,11 @@ import React from "react";
 import "./wrongans.scss";
 import Lottie from "react-lottie";
 import { useHistory } from "react-router-dom";
-import wrong_anim from "./animations/7481-banana-boy.json";
+import timeisup_anim from "./animations/9690-hour-glass-egg-timer.json";
 
-function WrongAns(props: {
-  points: number;
-  isJokerUsed: Function;
-  joker: boolean;
-}) {
+function TimeisUp(props: { points: number }) {
   let history = useHistory();
-  const { points, isJokerUsed, joker } = props;
+  const { points } = props;
   return (
     <div className="wrong-ans">
       <div className="anim">
@@ -18,23 +14,28 @@ function WrongAns(props: {
           options={{
             loop: true,
             autoplay: true,
-            animationData: wrong_anim,
+            animationData: timeisup_anim,
             rendererSettings: {
               preserveAspectRatio: "xMidYMid slice"
             }
           }}
-          height={400}
-          width={400}
+          height={200}
+          width={200}
           isStopped={false}
           isPaused={false}
         />
       </div>
-      <p>Opps Wrong!</p>
+      <p>
+        {" "}
+        Where have you been? <br /> Time is Up!
+      </p>
       <p>Total : {points} points</p>
+      <p>
+        I don't have a Joker to give you,
+        <br /> but you can continue with my new questions ?
+      </p>
+
       <div className="jokers">
-        {!joker ? (
-          <button onClick={() => isJokerUsed(true)}> Use %50 Joker</button>
-        ) : null}
         <button
           onClick={() => {
             /* comment */
@@ -49,4 +50,4 @@ function WrongAns(props: {
   );
 }
 
-export default WrongAns;
+export default TimeisUp;
