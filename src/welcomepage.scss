@@ -1,0 +1,20 @@
+.welcome {
+  .get-start {
+    height: 3rem;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+  .options-menu{
+    height: 14vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .option{
+      display: flex;
+      width: 100%;
+    }
+  }
+}
