@@ -7,6 +7,8 @@
   }
   .options-menu {
     height: 14vh;
+    max-width: 85vw;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -20,6 +22,7 @@
     .s-type {
       font-size: initial;
       margin-left: 10px;
+      max-width: 70%;
     }
   }
 }
