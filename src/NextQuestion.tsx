@@ -1,22 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./correctans.scss";
 import Lottie from "react-lottie";
 import correctAnim from "./animations/4521-correct.json";
-import { useHistory } from "react-router-dom";
 
-const defaultOptions = {
-  loop: false,
-  autoplay: true,
-  animationData: correctAnim,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice"
-  }
-};
-
-function CorrectAns(props: { points: number }) {
-  let history = useHistory();
-  const { points } = props;
-
+function NextQuestion(props: { points: number; setNextQue: Function }) {
+  const { points, setNextQue } = props;
 
   return (
     <div className="correct-ans">
@@ -36,19 +24,19 @@ function CorrectAns(props: { points: number }) {
           isPaused={false}
         />
       </div>
-      <p>Well Done !</p>
-      <p>You have {points} points in total</p>
+      <p>It's Correct !</p>
+      <p>You have earned {points} points</p>
 
       <button
         className="next-q"
         onClick={() => {
-          history.push("/");
+          setNextQue(false);
         }}
       >
-        Play Again
+        Next Question
       </button>
     </div>
   );
 }
 
-export default CorrectAns;
+export default NextQuestion;

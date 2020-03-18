@@ -1,5 +1,5 @@
 import React from "react";
-import "./wrongans.scss";
+import "./timeisup.scss";
 import Lottie from "react-lottie";
 import { useHistory } from "react-router-dom";
 import timeisup_anim from "./animations/9690-hour-glass-egg-timer.json";
@@ -8,7 +8,7 @@ function TimeisUp(props: { points: number }) {
   let history = useHistory();
   const { points } = props;
   return (
-    <div className="wrong-ans">
+    <div className="timeisup">
       <div className="anim">
         <Lottie
           options={{
@@ -31,11 +31,11 @@ function TimeisUp(props: { points: number }) {
       </p>
       <p>Total : {points} points</p>
       <p>
-        I don't have a Joker to give you,
+        Your Joker is useless now,
         <br /> but you can continue with my new questions ?
       </p>
 
-      <div className="jokers">
+      <div className="p-again">
         <button
           onClick={() => {
             /* comment */

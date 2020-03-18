@@ -5,16 +5,22 @@ import WrongAns from "./WrongAns";
 import TimeisUp from "./TimeisUp";
 import joker_anim from "./animations/8214-diamond.json";
 import Lottie from "react-lottie";
+import CorrectAns from "./CorrectAns";
+import NextQuestion from "./NextQuestion";
 
 function QuestionPage(props: { questions: any }) {
   const defaultTime = 15;
-  const earnedPoint = 100;
+  const PointVal = 100;
   const [time, setTime] = useState(defaultTime);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [point, setPoint] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [answerStatus, setAnswerStatus] = useState();
   const [isJokerUsed, setIsJokerUsed] = useState(false);
+  const [jokerCount, setJokerCount] = useState(2);
+  const [isFinished, setIsFinished] = useState(false);
+  const [nextQue, setNextQue] = useState(false);
+  const [earnedpoint, setEarnedPoint] = useState(0);
   const { questions } = props;
   useEffect(() => {
     if (!time) {
@@ -22,19 +28,25 @@ function QuestionPage(props: { questions: any }) {
       return;
     } else if (answerStatus !== undefined) {
       return;
+    } else if (isFinished) {
+      return;
+    } else if (nextQue) {
+      return;
     }
     const intervalId = setInterval(() => {
       setTime(time - 1);
     }, 1000);
     return () => clearInterval(intervalId);
-  }, [answerStatus, isJokerUsed, time]);
+  }, [answerStatus, isJokerUsed, time, isFinished, nextQue]);
 
   useEffect(() => {
     /* comment */
     if (answerStatus) {
+      setNextQue(true);
       setQuestionNumber(questionNumber + 1);
       setAnswerStatus(undefined);
-      setPoint(point + earnedPoint);
+      setEarnedPoint(PointVal * time);
+      setPoint(point + PointVal * time);
       setTime(defaultTime);
     } else if (!answerStatus && answerStatus !== undefined) {
       console.log("False ans");
@@ -44,12 +56,16 @@ function QuestionPage(props: { questions: any }) {
   useEffect(() => {
     /* comment */
     if (isJokerUsed) {
-      console.log(isJokerUsed);
+      setJokerCount(jokerCount - 1);
       setIsTimeUp(false);
-      setTime(defaultTime);
+      //setTime(defaultTime);
       setAnswerStatus(undefined);
     }
   }, [isJokerUsed]);
+  useEffect(() => {
+    /* comment */
+    jokerCount === 1 && setJokerCount(0);
+  }, [jokerCount]);
 
   return (
     <div className="question-page">
@@ -92,12 +108,21 @@ function QuestionPage(props: { questions: any }) {
       {isTimeUp ? (
         <TimeisUp points={point} />
       ) : answerStatus === true || answerStatus === undefined ? (
-        <Questions
-          questionsT={questions}
-          QueNumber={setQuestionNumber}
-          qNumb={questionNumber}
-          setAnswerStatus={setAnswerStatus}
-        />
+        isFinished ? (
+          <CorrectAns points={point} />
+        ) : nextQue ? (
+          <NextQuestion points={earnedpoint} setNextQue={setNextQue} />
+        ) : (
+          <Questions
+            questionsT={questions}
+            QueNumber={setQuestionNumber}
+            qNumb={questionNumber}
+            setAnswerStatus={setAnswerStatus}
+            isJokerUsed={isJokerUsed}
+            jokerCount={jokerCount}
+            setIsFinished={setIsFinished}
+          />
+        )
       ) : (
         <WrongAns
           points={point}
