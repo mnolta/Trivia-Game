@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It's a trivia game written for an interview.
+
 
 ## Available Scripts
 
